@@ -598,17 +598,17 @@ void LmHook_LoadLevelB(const uint8 *ptr_layer1_data, uint8 R2, uint16 level_numb
       }
     }
   } else {
-    k *= 16;
-    if (k & 0x100) {
-      k |= 0xff00;
-      if (k == 0xff00)
-        k = 0;
+    uint16 k16 = (uint16)k * 16;
+    if (k16 & 0x100) {
+      k16 |= 0xff00;
+      if (k16 == 0xff00)
+        k16 = 0;
       else
-        k += mirror_current_layer1_ypos;
+        k16 += mirror_current_layer1_ypos;
     } else {
-      k = (k & 0xf0) + mirror_current_layer1_ypos;
+      k16 = (k16 & 0xf0) + mirror_current_layer1_ypos;
     }
-    mirror_current_layer2_ypos = k;
+    mirror_current_layer2_ypos = k16;
     camera_layer2_ypos_relative_to_layer1 = -(mirror_current_layer1_ypos >> kShifts[kk - 1]) + mirror_current_layer2_ypos;
   }
 }
